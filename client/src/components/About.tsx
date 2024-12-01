@@ -33,38 +33,18 @@ export default function About() {
     queryKey: ["testnet-snapshots"],
     queryFn: async () => {
       try {
-        const response = await axios.get(testnetUrl, {
-          headers: {
-            'Accept': 'application/json',
-            'Cache-Control': 'no-cache'
-          },
-          timeout: 10000,
-          validateStatus: function (status) {
-            return status >= 200 && status < 300;
-          },
-          maxRedirects: 5,
-          withCredentials: false
-        });
-        
-        if (!response.data) {
-          throw new Error('No data received');
+        const response = await fetch(testnetUrl);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
-        return response.data;
+        const data = await response.json();
+        console.log('Fetched data:', data);
+        return data;
       } catch (error) {
         console.error('Fetch error:', error);
-        if (axios.isAxiosError(error)) {
-          if (error.response) {
-            throw new Error(`Server error: ${error.response.status}`);
-          } else if (error.request) {
-            throw new Error('Network error - no response received');
-          }
-        }
-        throw new Error('Failed to fetch data');
+        throw new Error('Veri çekilemedi');
       }
-    },
-    retry: 2,
-    retryDelay: 1000
+    }
   });
 
   const copyToClipboard = (text: string | undefined) => {
