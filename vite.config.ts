@@ -1,21 +1,42 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import path from "path";
+import themePlugin from "@replit/vite-plugin-shadcn-theme-json"
+import path, { dirname } from "path"
+import checker from "vite-plugin-checker"
+import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal"
+import { fileURLToPath } from "url"
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 export default defineConfig({
   plugins: [
-    react()
+    react(),
+    checker({ typescript: true, overlay: false }),
+    runtimeErrorOverlay(),
+    themePlugin()
   ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-    },
+    }
   },
   build: {
-    outDir: 'dist',
+    outDir: 'dist/client',
     emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html')
+      }
+    }
   },
   server: {
-    port: 3000
+    port: 3000,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3001',
+        changeOrigin: true
+      }
+    }
   }
-});
+})
