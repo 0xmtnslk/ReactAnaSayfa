@@ -19,10 +19,6 @@
       "dest": "dist/server/index.js"
     },
     {
-      "src": "^/assets/(.*)",
-      "dest": "/assets/\$1"
-    },
-    {
       "src": "/(.*)",
       "dest": "/index.html"
     }
