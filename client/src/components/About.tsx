@@ -15,22 +15,22 @@ export default function About() {
           <div>
             <h2 className="text-3xl font-bold mb-6">Testnet</h2>
             <p className="text-muted-foreground mb-6">
-              Testnet ortamında yeni özellikleri ve güncellemeleri güvenle test edin. 
-              Deneysel projeleri risk almadan geliştirebilir, node operasyonlarını 
-              öğrenebilir ve blockchain ağlarını daha iyi anlayabilirsiniz.
+              Safely test new features and updates in testnet environment. 
+              Develop experimental projects without risk, learn node operations, 
+              and better understand blockchain networks.
             </p>
             <ul className="space-y-4 mb-8">
               <li className="flex items-center gap-2">
                 <span className="h-2 w-2 bg-primary rounded-full"></span>
-                <span>Risk almadan node operasyonlarını öğrenin</span>
+                <span>Learn node operations without risk</span>
               </li>
               <li className="flex items-center gap-2">
                 <span className="h-2 w-2 bg-primary rounded-full"></span>
-                <span>Test token'ları ile ücretsiz deneyim</span>
+                <span>Free experience with test tokens</span>
               </li>
               <li className="flex items-center gap-2">
                 <span className="h-2 w-2 bg-primary rounded-full"></span>
-                <span>Teknik destek ve topluluk desteği</span>
+                <span>Technical and community support</span>
               </li>
             </ul>
             
@@ -38,7 +38,7 @@ export default function About() {
               className="bg-gradient-to-r from-primary to-primary/60 hover:from-primary/90 hover:to-primary/80 hover:scale-105 transition-all"
               onClick={() => window.location.href = "https://nodes.coinhunterstr.com/#testnet"}
             >
-              Testnet Detayları
+              Testnet Details
             </Button>
           </div>
         </div>

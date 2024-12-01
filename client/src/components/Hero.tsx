@@ -7,10 +7,10 @@ export default function Hero() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-              Hızlı ve Güvenilir Cosmos SDK Node Snapshot Servisi
+              Fast and Reliable Cosmos SDK Node Snapshot Service
             </h1>
             <p className="mt-6 text-xl text-muted-foreground">
-              Cosmos SDK tabanlı blockchain ağları için profesyonel snapshot hizmeti. Mainnet ve Testnet node'larınızı dakikalar içinde senkronize edin.
+              Professional snapshot service for Cosmos SDK based blockchain networks. Synchronize your Mainnet and Testnet nodes within minutes.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Button 
