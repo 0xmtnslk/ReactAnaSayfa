@@ -75,13 +75,23 @@ export default function About() {
 
         <div className="flex flex-col gap-4">
           {snapshots?.map((snapshot, index) => (
-            <Card key={index} className="w-full border shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <Card 
+                key={index} 
+                className="w-full border shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+                onClick={() => toggleDetails(snapshot.project)}
+              >
               <Collapsible
                 open={openDetails[snapshot.project]}
                 onOpenChange={() => toggleDetails(snapshot.project)}
                 className="w-full"
               >
-                <CardHeader className="flex flex-row justify-between items-start space-y-0 pb-2">
+                <CardHeader 
+                  className="flex flex-row justify-between items-start space-y-0 pb-2 cursor-pointer"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleDetails(snapshot.project);
+                  }}
+                >
                   <div className="flex items-center gap-2">
                     <img
                       src={snapshot.pic || fallbackLogo}
@@ -94,7 +104,10 @@ export default function About() {
                     />
                     <CardTitle className="text-xl">{snapshot.name}</CardTitle>
                   </div>
-                  <CollapsibleTrigger className="flex items-center gap-2 px-4 py-2 rounded-md hover:bg-muted transition-colors duration-200">
+                  <CollapsibleTrigger 
+                    className="flex items-center gap-2 px-4 py-2 rounded-md hover:bg-muted transition-colors duration-200"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     <span className="text-sm font-medium text-primary">Snapshots</span>
                     <div className="transition-transform duration-200">
                       {openDetails[snapshot.project] ? (
