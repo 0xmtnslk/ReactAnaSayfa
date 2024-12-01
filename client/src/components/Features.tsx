@@ -4,22 +4,22 @@ import axios from "axios";
 import { formatDistanceToNow } from "date-fns";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Copy, ChevronDown, ChevronUp } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 
 interface SnapshotData {
+  project: string;
   name: string;
   height: string;
   date: string;
   size: string;
-  project: string;
-  pic: string;
-  code: string;
+  code?: string;
+  pic?: string;
 }
 
 export default function Features() {
@@ -27,11 +27,9 @@ export default function Features() {
   const [openDetails, setOpenDetails] = useState<Record<string, boolean>>({});
 
   const mainnetUrl = import.meta.env.VITE_MAINNET_JSON_URL;
-  console.log('Environment variables:', {
-    VITE_MAINNET_JSON_URL: import.meta.env.VITE_MAINNET_JSON_URL,
-    VITE_TESTNET_JSON_URL: import.meta.env.VITE_TESTNET_JSON_URL
-  });
-  console.log('Mainnet URL:', mainnetUrl);
+  if (!mainnetUrl) {
+    console.error('VITE_MAINNET_JSON_URL is not defined');
+  }
 
   const { data: snapshots, isLoading, error } = useQuery({
     queryKey: ["snapshots"],

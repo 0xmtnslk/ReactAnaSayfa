@@ -13,8 +13,5 @@ export default defineConfig({
     host: "0.0.0.0",
     port: 5000,
   },
-  define: {
-    'VITE_MAINNET_JSON_URL': JSON.stringify(process.env.VITE_MAINNET_JSON_URL),
-    'VITE_TESTNET_JSON_URL': JSON.stringify(process.env.VITE_TESTNET_JSON_URL)
-  }
+  envPrefix: "VITE_"
 });
