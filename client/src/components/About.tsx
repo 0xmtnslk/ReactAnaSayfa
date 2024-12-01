@@ -34,29 +34,22 @@ export default function About() {
   const { data: snapshots, isLoading, error } = useQuery({
     queryKey: ["testnet-snapshots"],
     queryFn: async () => {
-      if (!testnetUrl) {
-        throw new Error('Testnet URL is not configured');
-      }
-
       try {
-        const response = await axios.get<SnapshotData[]>(testnetUrl, {
+        const response = await fetch(testnetUrl, {
+          mode: 'cors',
           headers: {
-            'Accept': 'application/json',
-            'Cache-Control': 'no-cache'
+            'Accept': 'application/json'
           }
         });
-        
-        if (!response.data) {
-          throw new Error('No data received from API');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
         }
-        
-        return response.data;
+        const data = await response.json();
+        console.log('Fetched data:', data); // Debug için
+        return data;
       } catch (error) {
-        if (axios.isAxiosError(error)) {
-          console.error('Network Error:', error.message);
-          throw new Error(`Failed to fetch testnet data: ${error.message}`);
-        }
-        throw error;
+        console.error('Fetch error:', error);
+        throw new Error('Veri çekilemedi. Lütfen daha sonra tekrar deneyin.');
       }
     },
     retry: false,

@@ -34,29 +34,22 @@ export default function Features() {
   const { data: snapshots, isLoading, error } = useQuery({
     queryKey: ["snapshots"],
     queryFn: async () => {
-      if (!mainnetUrl) {
-        throw new Error('Mainnet URL is not configured');
-      }
-
       try {
-        const response = await axios.get<SnapshotData[]>(mainnetUrl, {
+        const response = await fetch(mainnetUrl, {
+          mode: 'cors',
           headers: {
-            'Accept': 'application/json',
-            'Cache-Control': 'no-cache'
+            'Accept': 'application/json'
           }
         });
-        
-        if (!response.data) {
-          throw new Error('No data received from API');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
         }
-        
-        return response.data;
+        const data = await response.json();
+        console.log('Fetched data:', data); // Debug için
+        return data;
       } catch (error) {
-        if (axios.isAxiosError(error)) {
-          console.error('Network Error:', error.message);
-          throw new Error(`Failed to fetch mainnet data: ${error.message}`);
-        }
-        throw error;
+        console.error('Fetch error:', error);
+        throw new Error('Veri çekilemedi. Lütfen daha sonra tekrar deneyin.');
       }
     },
     retry: false,
