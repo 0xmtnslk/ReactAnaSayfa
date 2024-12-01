@@ -16,7 +16,7 @@ export default function Logo({ className }: LogoProps) {
           objectFit: "contain"
         }}
       />
-      <span className="text-lg md:text-2xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+      <span className="text-lg md:text-2xl font-bold text-black">
         CoinHunters
       </span>
     </div>
