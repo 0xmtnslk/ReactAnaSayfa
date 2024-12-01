@@ -13,8 +13,8 @@ export default function Hero() {
               Empower your team with cutting-edge tools and strategies designed for today's digital landscape.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <Button size="lg">Get Started</Button>
-              <Button size="lg" variant="outline">Learn More</Button>
+              <Button size="lg" className="bg-gradient-to-r from-primary to-primary/60 hover:from-primary/90 hover:to-primary/80 hover:scale-105 transition-all">Get Started</Button>
+              <Button size="lg" variant="ghost" className="hover:scale-105 transition-all ml-4">Learn More</Button>
             </div>
           </div>
           <div className="relative">
