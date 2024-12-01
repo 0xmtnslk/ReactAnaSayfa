@@ -68,12 +68,13 @@ export default function Features() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="flex flex-col gap-4">
           {snapshots?.map((snapshot, index) => (
-            <Card key={index} className="border shadow-lg hover:shadow-xl transition-all hover:-translate-y-1">
+            <Card key={index} className="w-full border shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
               <Collapsible
                 open={openDetails[snapshot.project]}
                 onOpenChange={() => toggleDetails(snapshot.project)}
+                className="w-full"
               >
                 <CardHeader className="flex flex-row justify-between items-start space-y-0 pb-2">
                   <div className="flex items-center gap-2">
@@ -84,41 +85,46 @@ export default function Features() {
                     />
                     <CardTitle className="text-xl">{snapshot.project}</CardTitle>
                   </div>
-                  <CollapsibleTrigger className="text-sm font-medium text-primary hover:underline flex items-center gap-1">
-                    Snapshots
-                    {openDetails[snapshot.project] ? (
-                      <ChevronUp className="h-4 w-4" />
-                    ) : (
-                      <ChevronDown className="h-4 w-4" />
-                    )}
+                  <CollapsibleTrigger className="flex items-center gap-2 px-4 py-2 rounded-md hover:bg-muted transition-colors duration-200">
+                    <span className="text-sm font-medium text-primary">Snapshots</span>
+                    <div className="transition-transform duration-200">
+                      {openDetails[snapshot.project] ? (
+                        <ChevronUp className="h-4 w-4" />
+                      ) : (
+                        <ChevronDown className="h-4 w-4" />
+                      )}
+                    </div>
                   </CollapsibleTrigger>
                 </CardHeader>
-                <CardContent>
-                  <CollapsibleContent className="space-y-2">
-                    <div className="text-sm space-y-1">
-                      <p>
-                        <span className="font-medium">Height:</span>{" "}
-                        {snapshot.height}
-                      </p>
-                      <p>
-                        <span className="font-medium">Time:</span>{" "}
-                        {formatDistanceToNow(new Date(snapshot.date), {
-                          addSuffix: true,
-                        })}
-                      </p>
-                      <p>
-                        <span className="font-medium">Size:</span> {snapshot.size}
-                      </p>
+                <CardContent className="p-6">
+                  <CollapsibleContent className="space-y-4 transition-all duration-200 ease-in-out">
+                    <div className="grid grid-cols-3 gap-6 text-sm">
+                      <div>
+                        <span className="font-medium block mb-1">Height</span>
+                        <span className="text-muted-foreground">{snapshot.height}</span>
+                      </div>
+                      <div>
+                        <span className="font-medium block mb-1">Time</span>
+                        <span className="text-muted-foreground">
+                          {formatDistanceToNow(new Date(snapshot.date), {
+                            addSuffix: true,
+                          })}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="font-medium block mb-1">Size</span>
+                        <span className="text-muted-foreground">{snapshot.size}</span>
+                      </div>
                     </div>
 
-                    <div className="relative mt-4 group">
-                      <pre className="bg-muted p-4 rounded-lg text-sm overflow-x-auto">
+                    <div className="relative mt-6 group">
+                      <pre className="w-full bg-muted p-4 rounded-lg text-sm overflow-x-auto font-mono text-base">
                         {`curl https://snapshots.coinhunterstr.com/mainnet/${snapshot.project}/snapshot_latest.tar.lz4 | lz4 -dc - | tar -xf -`}
                       </pre>
                       <Button
                         size="icon"
                         variant="ghost"
-                        className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                         onClick={() =>
                           copyToClipboard(
                             `curl https://snapshots.coinhunterstr.com/mainnet/${snapshot.project}/snapshot_latest.tar.lz4 | lz4 -dc - | tar -xf -`
