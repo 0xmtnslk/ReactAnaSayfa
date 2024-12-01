@@ -26,36 +26,42 @@ export default function About() {
   const { toast } = useToast();
   const [openDetails, setOpenDetails] = useState<Record<string, boolean>>({});
 
-  const testnetUrl = import.meta.env.VITE_TESTNET_JSON_URL;
-  if (!testnetUrl) {
-    console.error('VITE_TESTNET_JSON_URL is not defined');
-  }
+  const testnetUrl = import.meta.env.VITE_TESTNET_JSON_URL || "https://snapshots.coinhunterstr.com/testnet/snapshots_log.json";
+  console.log('Using testnet URL:', testnetUrl);
 
   const { data: snapshots, isLoading, error } = useQuery({
     queryKey: ["testnet-snapshots"],
     queryFn: async () => {
+      console.log('Fetching from URL:', testnetUrl); // URL'yi logla
+      
       try {
-        const response = await fetch(testnetUrl, {
-          mode: 'cors',
+        const response = await axios.get(testnetUrl, {
           headers: {
-            'Accept': 'application/json'
-          }
+            'Accept': 'application/json',
+            'Cache-Control': 'no-cache',
+            'Access-Control-Allow-Origin': '*'
+          },
+          timeout: 5000
         });
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        console.log('Fetched data:', data); // Debug için
-        return data;
+        
+        console.log('Response status:', response.status);
+        console.log('Response data:', response.data);
+        
+        return response.data;
       } catch (error) {
-        console.error('Fetch error:', error);
-        throw new Error('Veri çekilemedi. Lütfen daha sonra tekrar deneyin.');
+        console.error('Detailed fetch error:', error);
+        if (axios.isAxiosError(error)) {
+          console.error('Response data:', error.response?.data);
+          console.error('Response status:', error.response?.status);
+        }
+        throw error;
       }
     },
-    retry: false,
+    retry: 3,
+    retryDelay: 1000
   });
 
-  const copyToClipboard = (text: string) => {
+  const copyToClipboard = (text: string | undefined) => {
     if (!text) return;
     navigator.clipboard.writeText(text);
     toast({
@@ -116,7 +122,7 @@ export default function About() {
         </div>
 
         <div className="grid gap-6">
-          {snapshots?.map((snapshot, index) => (
+          {snapshots?.map((snapshot: SnapshotData, index: number) => (
             <Card 
               key={index} 
               className="group border-border/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
