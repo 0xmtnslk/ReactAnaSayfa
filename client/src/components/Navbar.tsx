@@ -41,7 +41,12 @@ export default function Navbar() {
               {item.label}
             </button>
           ))}
-          <Button className="bg-gradient-to-r from-primary to-primary/60 hover:from-primary/90 hover:to-primary/80 hover:scale-105 transition-all">Get Started</Button>
+          <Button 
+            className="bg-gradient-to-r from-primary to-primary/60 hover:from-primary/90 hover:to-primary/80 hover:scale-105 transition-all"
+            onClick={() => window.location.href = "https://nodes.coinhunterstr.com/"}
+          >
+            Nodes
+          </Button>
         </div>
 
         {/* Mobile Navigation */}
@@ -65,7 +70,12 @@ export default function Navbar() {
                   {item.label}
                 </button>
               ))}
-              <Button className="mt-4 bg-gradient-to-r from-primary to-primary/60 hover:from-primary/90 hover:to-primary/80 hover:scale-105 transition-all">Get Started</Button>
+              <Button 
+                className="mt-4 bg-gradient-to-r from-primary to-primary/60 hover:from-primary/90 hover:to-primary/80 hover:scale-105 transition-all"
+                onClick={() => window.location.href = "https://nodes.coinhunterstr.com/"}
+              >
+                Nodes
+              </Button>
             </div>
           </SheetContent>
         </Sheet>
