@@ -5,6 +5,7 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import Logo from "./Logo";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 
@@ -25,8 +26,8 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50 border-b">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-          Company
+        <Link href="/">
+          <Logo />
         </Link>
 
         {/* Desktop Navigation */}
