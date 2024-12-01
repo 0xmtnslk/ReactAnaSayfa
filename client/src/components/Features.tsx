@@ -13,6 +13,7 @@ import { Copy, ChevronDown, ChevronUp } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface SnapshotData {
+  name: string;
   height: string;
   date: string;
   size: string;
@@ -91,7 +92,7 @@ export default function Features() {
                         img.src = fallbackLogo;
                       }}
                     />
-                    <CardTitle className="text-xl">{snapshot.project}</CardTitle>
+                    <CardTitle className="text-xl">{snapshot.name}</CardTitle>
                   </div>
                   <CollapsibleTrigger className="flex items-center gap-2 px-4 py-2 rounded-md hover:bg-muted transition-colors duration-200">
                     <span className="text-sm font-medium text-primary">Snapshots</span>
