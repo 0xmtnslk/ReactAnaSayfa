@@ -1,37 +1,38 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { LineChart, BarChart, Users, Zap } from "lucide-react";
+import { Zap, Server, Shield, Activity } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const features = [
   {
-    title: "Analytics",
-    description: "Gain valuable insights with our advanced analytics platform",
-    icon: LineChart,
+    title: "Yüksek Güvenlik",
+    description: "Mainnet ağında maksimum güvenlik ve stabilite",
+    icon: Shield,
   },
   {
-    title: "Performance",
-    description: "Optimize your operations for maximum efficiency",
-    icon: BarChart,
+    title: "Gerçek Değer",
+    description: "Gerçek kripto varlıkları ile etkileşim",
+    icon: Activity,
   },
   {
-    title: "Team Collaboration",
-    description: "Work seamlessly with your team members",
-    icon: Users,
-  },
-  {
-    title: "Quick Integration",
-    description: "Easy setup and integration with your existing tools",
+    title: "Hızlı İşlem",
+    description: "Hızlı ve güvenilir işlem onayları",
     icon: Zap,
+  },
+  {
+    title: "Node Operasyonları",
+    description: "Profesyonel node altyapısı ve yönetimi",
+    icon: Server,
   },
 ];
 
 export default function Features() {
   return (
-    <section id="features" className="py-20 bg-muted/50">
+    <section id="mainnet" className="py-20 bg-muted/50">
       <div className="container px-4 mx-auto">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-3xl font-bold mb-4">Powerful Features</h2>
+          <h2 className="text-3xl font-bold mb-4">Mainnet</h2>
           <p className="text-muted-foreground">
-            Everything you need to take your business to the next level
+            Güvenli ve profesyonel mainnet node hizmetleri
           </p>
         </div>
 
@@ -47,6 +48,15 @@ export default function Features() {
               </CardContent>
             </Card>
           ))}
+        </div>
+        
+        <div className="flex justify-center mt-12">
+          <Button 
+            className="bg-gradient-to-r from-primary to-primary/60 hover:from-primary/90 hover:to-primary/80 hover:scale-105 transition-all"
+            onClick={() => window.location.href = "https://nodes.coinhunterstr.com/#mainnet"}
+          >
+            Mainnet Detayları
+          </Button>
         </div>
       </div>
     </section>
