@@ -104,44 +104,38 @@ export default function Features() {
           {snapshots?.map((snapshot: SnapshotData, index: number) => (
             <Card 
               key={index} 
-              className="group border-border/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              className="group border-border/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+              onClick={() => setOpenDetails(prev => ({
+                ...prev,
+                [snapshot.project]: !prev[snapshot.project]
+              }))}
             >
-              <CardHeader className="flex flex-row justify-between items-center space-y-0 pb-2">
-                <div className="flex items-center gap-4">
-                  <div className="relative w-10 h-10 rounded-full overflow-hidden ring-2 ring-border bg-background/50 backdrop-blur">
-                    <img
-                      src={snapshot.pic || fallbackLogo}
-                      alt={`${snapshot.project} logo`}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        const img = e.target as HTMLImageElement;
-                        img.src = fallbackLogo;
-                      }}
-                    />
+              <Collapsible open={openDetails[snapshot.project]}>
+                <CardHeader className="flex flex-row items-center space-y-0 pb-2">
+                  <div className="flex items-center gap-4">
+                    <div className="relative w-10 h-10 rounded-full overflow-hidden ring-2 ring-border bg-background/50 backdrop-blur">
+                      <img
+                        src={snapshot.pic || fallbackLogo}
+                        alt={`${snapshot.project} logo`}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          const img = e.target as HTMLImageElement;
+                          img.src = fallbackLogo;
+                        }}
+                      />
+                    </div>
+                    <CardTitle className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">
+                      {snapshot.name}
+                    </CardTitle>
                   </div>
-                  <CardTitle className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">
-                    {snapshot.name}
-                  </CardTitle>
-                </div>
-                <Collapsible>
-                  <CollapsibleTrigger asChild>
-                    <Button 
-                      variant="ghost" 
-                      size="sm" 
-                      className="gap-2 hover:bg-primary/10"
-                      onClick={() => setOpenDetails(prev => ({
-                        ...prev,
-                        [snapshot.project]: !prev[snapshot.project]
-                      }))}
-                    >
-                      <span className="font-medium">Details</span>
-                      {openDetails[snapshot.project] ? (
-                        <ChevronUp className="h-4 w-4" />
-                      ) : (
-                        <ChevronDown className="h-4 w-4" />
-                      )}
-                    </Button>
-                  </CollapsibleTrigger>
+                  <div className="ml-auto">
+                    {openDetails[snapshot.project] ? (
+                      <ChevronUp className="h-4 w-4" />
+                    ) : (
+                      <ChevronDown className="h-4 w-4" />
+                    )}
+                  </div>
+                </CardHeader>
                   <CollapsibleContent>
                     <CardContent className="pt-4">
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm mb-6">
@@ -188,7 +182,6 @@ export default function Features() {
                     </CardContent>
                   </CollapsibleContent>
                 </Collapsible>
-              </CardHeader>
             </Card>
           ))}
         </div>

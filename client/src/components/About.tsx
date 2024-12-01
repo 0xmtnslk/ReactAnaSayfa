@@ -111,13 +111,13 @@ export default function About() {
           {snapshots?.map((snapshot: SnapshotData, index: number) => (
             <Card 
               key={index} 
-              className="group border-border/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              className="group border-border/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+              onClick={() => toggleDetails(snapshot.project)}
             >
               <Collapsible
                 open={openDetails[snapshot.project]}
-                onOpenChange={() => toggleDetails(snapshot.project)}
               >
-                <CardHeader className="flex flex-row justify-between items-center space-y-0 pb-2">
+                <CardHeader className="flex flex-row items-center space-y-0 pb-2">
                   <div className="flex items-center gap-4">
                     <div className="relative w-10 h-10 rounded-full overflow-hidden ring-2 ring-border">
                       <img
@@ -132,16 +132,13 @@ export default function About() {
                     </div>
                     <CardTitle className="text-xl font-bold">{snapshot.name}</CardTitle>
                   </div>
-                  <CollapsibleTrigger asChild>
-                    <Button variant="ghost" size="sm" className="gap-2">
-                      <span className="font-medium">Details</span>
-                      {openDetails[snapshot.project] ? (
-                        <ChevronUp className="h-4 w-4" />
-                      ) : (
-                        <ChevronDown className="h-4 w-4" />
-                      )}
-                    </Button>
-                  </CollapsibleTrigger>
+                  <div className="ml-auto">
+                    {openDetails[snapshot.project] ? (
+                      <ChevronUp className="h-4 w-4" />
+                    ) : (
+                      <ChevronDown className="h-4 w-4" />
+                    )}
+                  </div>
                 </CardHeader>
                 <CollapsibleContent>
                   <CardContent className="pt-4">
