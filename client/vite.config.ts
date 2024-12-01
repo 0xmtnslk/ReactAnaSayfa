@@ -17,4 +17,8 @@ export default defineConfig({
       clientPort: 443,
     },
   },
+  envPrefix: "VITE_",
+  define: {
+    'process.env': process.env
+  }
 });

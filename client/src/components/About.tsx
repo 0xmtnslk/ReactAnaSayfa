@@ -27,6 +27,10 @@ export default function About() {
   const [openDetails, setOpenDetails] = useState<Record<string, boolean>>({});
 
   const testnetUrl = import.meta.env.VITE_TESTNET_JSON_URL;
+  console.log('Environment variables:', {
+    VITE_MAINNET_JSON_URL: import.meta.env.VITE_MAINNET_JSON_URL,
+    VITE_TESTNET_JSON_URL: import.meta.env.VITE_TESTNET_JSON_URL
+  });
   console.log('Testnet URL:', testnetUrl);
 
   const { data: snapshots, isLoading, error } = useQuery({
