@@ -7,38 +7,17 @@ interface LogoProps {
 export default function Logo({ className }: LogoProps) {
   return (
     <div className={cn("flex items-center gap-2", className)}>
-      <svg
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="shrink-0"
-      >
-        <path
-          d="M16 2L3 9L16 16L29 9L16 2Z"
-          className="fill-primary"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M3 23L16 30L29 23"
-          className="fill-primary/60"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M3 16L16 23L29 16"
-          className="fill-primary/80"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-      <span className="text-2xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-        Innovate
+      <img
+        src="https://coinhunterstr.com/wp-content/uploads/2022/12/CH_logo.webp"
+        alt="Coin Hunters Logo"
+        className="h-8 w-auto md:h-10 transition-transform hover:scale-105"
+        style={{
+          maxHeight: "40px",
+          objectFit: "contain"
+        }}
+      />
+      <span className="text-lg md:text-2xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+        CoinHunters
       </span>
     </div>
   );
