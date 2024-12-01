@@ -16,6 +16,7 @@ export default defineConfig({
     runtimeErrorOverlay(),
     themePlugin()
   ],
+  root: '.', // Ana dizini root olarak kullan
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
