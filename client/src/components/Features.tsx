@@ -67,7 +67,7 @@ export default function Features() {
     <section id="mainnet" className="py-20 bg-muted/50">
       <div className="container px-4 mx-auto">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-3xl font-bold mb-4">Available Snapshots</h2>
+          <h2 className="text-3xl font-bold mb-4">Mainnet Snapshots</h2>
           <p className="text-muted-foreground">
             Latest snapshots for Cosmos SDK based networks
           </p>
