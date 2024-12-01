@@ -17,7 +17,8 @@ interface SnapshotData {
   date: string;
   size: string;
   project: string;
-  logo: string;
+  pic: string;
+  code: string;
 }
 
 export default function Features() {
@@ -35,6 +36,7 @@ export default function Features() {
   });
 
   const copyToClipboard = (text: string) => {
+    if (!text) return;
     navigator.clipboard.writeText(text);
     toast({
       description: "Command copied to clipboard",
@@ -58,6 +60,8 @@ export default function Features() {
     );
   }
 
+  const fallbackLogo = "https://coinhunterstr.com/wp-content/uploads/2022/12/CH_logo.webp";
+
   return (
     <section id="mainnet" className="py-20 bg-muted/50">
       <div className="container px-4 mx-auto">
@@ -79,9 +83,13 @@ export default function Features() {
                 <CardHeader className="flex flex-row justify-between items-start space-y-0 pb-2">
                   <div className="flex items-center gap-2">
                     <img
-                      src={snapshot.logo}
+                      src={snapshot.pic || fallbackLogo}
                       alt={`${snapshot.project} logo`}
                       className="w-8 h-8 rounded-full"
+                      onError={(e) => {
+                        const img = e.target as HTMLImageElement;
+                        img.src = fallbackLogo;
+                      }}
                     />
                     <CardTitle className="text-xl">{snapshot.project}</CardTitle>
                   </div>
@@ -118,21 +126,25 @@ export default function Features() {
                     </div>
 
                     <div className="relative mt-6 group">
-                      <pre className="w-full bg-muted p-4 rounded-lg text-sm overflow-x-auto font-mono text-base">
-                        {`curl https://snapshots.coinhunterstr.com/mainnet/${snapshot.project}/snapshot_latest.tar.lz4 | lz4 -dc - | tar -xf -`}
-                      </pre>
-                      <Button
-                        size="icon"
-                        variant="ghost"
-                        className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                        onClick={() =>
-                          copyToClipboard(
-                            `curl https://snapshots.coinhunterstr.com/mainnet/${snapshot.project}/snapshot_latest.tar.lz4 | lz4 -dc - | tar -xf -`
-                          )
-                        }
-                      >
-                        <Copy className="h-4 w-4" />
-                      </Button>
+                      {snapshot.code ? (
+                        <pre className="w-full bg-muted p-6 rounded-lg text-sm overflow-x-auto font-mono text-[15px] leading-relaxed">
+                          {snapshot.code}
+                        </pre>
+                      ) : (
+                        <div className="w-full bg-muted p-6 rounded-lg text-sm text-muted-foreground">
+                          Command not available for this snapshot
+                        </div>
+                      )}
+                      {snapshot.code && (
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                          onClick={() => copyToClipboard(snapshot.code)}
+                        >
+                          <Copy className="h-4 w-4" />
+                        </Button>
+                      )}
                     </div>
                   </CollapsibleContent>
                 </CardContent>
