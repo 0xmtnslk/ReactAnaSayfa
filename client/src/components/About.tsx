@@ -32,32 +32,38 @@ export default function About() {
   const { data: snapshots, isLoading, error } = useQuery({
     queryKey: ["testnet-snapshots"],
     queryFn: async () => {
-      console.log('Fetching from URL:', testnetUrl); // URL'yi logla
-      
       try {
         const response = await axios.get(testnetUrl, {
           headers: {
             'Accept': 'application/json',
-            'Cache-Control': 'no-cache',
-            'Access-Control-Allow-Origin': '*'
+            'Cache-Control': 'no-cache'
           },
-          timeout: 5000
+          timeout: 10000,
+          validateStatus: function (status) {
+            return status >= 200 && status < 300;
+          },
+          maxRedirects: 5,
+          withCredentials: false
         });
         
-        console.log('Response status:', response.status);
-        console.log('Response data:', response.data);
+        if (!response.data) {
+          throw new Error('No data received');
+        }
         
         return response.data;
       } catch (error) {
-        console.error('Detailed fetch error:', error);
+        console.error('Fetch error:', error);
         if (axios.isAxiosError(error)) {
-          console.error('Response data:', error.response?.data);
-          console.error('Response status:', error.response?.status);
+          if (error.response) {
+            throw new Error(`Server error: ${error.response.status}`);
+          } else if (error.request) {
+            throw new Error('Network error - no response received');
+          }
         }
-        throw error;
+        throw new Error('Failed to fetch data');
       }
     },
-    retry: 3,
+    retry: 2,
     retryDelay: 1000
   });
 
