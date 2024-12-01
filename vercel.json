@@ -1,12 +1,9 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
+  "devCommand": "npm run dev",
   "framework": "vite",
   "rewrites": [
     { "source": "/(.*)", "destination": "/" }
-  ],
-  "env": {
-    "VITE_MAINNET_JSON_URL": "https://snapshots.coinhunterstr.com/mainnet/mainnet_snapshots_log.json",
-    "VITE_TESTNET_JSON_URL": "https://snapshots.coinhunterstr.com/testnet/snapshots_log.json"
-  }
+  ]
 }
