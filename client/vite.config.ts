@@ -12,13 +12,9 @@ export default defineConfig({
   server: {
     host: "0.0.0.0",
     port: 5000,
-    cors: true,
-    hmr: {
-      clientPort: 443,
-    },
   },
-  envPrefix: "VITE_",
   define: {
-    'process.env': process.env
+    'VITE_MAINNET_JSON_URL': JSON.stringify(process.env.VITE_MAINNET_JSON_URL),
+    'VITE_TESTNET_JSON_URL': JSON.stringify(process.env.VITE_TESTNET_JSON_URL)
   }
 });
