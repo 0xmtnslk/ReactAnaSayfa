@@ -10,28 +10,14 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 export default defineConfig({
-  plugins: [
-    react(),
-    checker({ typescript: true, overlay: false }),
-    runtimeErrorOverlay(),
-    themePlugin()
-  ],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
-    }
-  },
-  build: {
-    outDir: 'dist/client',
-    emptyOutDir: true
-  },
-  server: {
-    port: 3000,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3001',
-        changeOrigin: true
-      }
-    }
-  }
-})
+  plugins: [
+    react(),
+    checker({ typescript: true, overlay: false }),
+    runtimeErrorOverlay(),
+    themePlugin()
+  ],
+  build: {
+    outDir: 'dist/public',
+    emptyOutDir: true
+  }
+});
